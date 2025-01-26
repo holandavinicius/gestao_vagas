@@ -2,30 +2,28 @@ package pt.com.viniciusmaia.gestao_vagas.modules.company.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import pt.com.viniciusmaia.gestao_vagas.modules.company.entities.CompanyEntity;
-import pt.com.viniciusmaia.gestao_vagas.modules.company.useCases.CreateCompanyUseCase;
+import pt.com.viniciusmaia.gestao_vagas.exceptions.JobFoundException;
+import pt.com.viniciusmaia.gestao_vagas.modules.company.entities.JobEntity;
+import pt.com.viniciusmaia.gestao_vagas.modules.company.useCases.CreateJobUseCase;
 
 @RestController
-@RequestMapping("/company")
-public class CompanyController {
-
+@RequestMapping("/job")
+public class JobController {
+    
     @Autowired
-    private CreateCompanyUseCase createCompanyUseCase;
+    CreateJobUseCase createJobUseCase;
 
-    @PostMapping("/")
-    public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody JobEntity jobEntity) {
         try {
-            var result = this.createCompanyUseCase.execute(companyEntity);
+            var result = this.createJobUseCase.execute(jobEntity);
             return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
+        } catch (JobFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    } 
-
+    }
 }

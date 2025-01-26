@@ -1,4 +1,4 @@
-package pt.com.viniciusmaia.gestao_vagas.modules.company.entities.useCases;
+package pt.com.viniciusmaia.gestao_vagas.modules.company.useCases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
